@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+##
+# Setup script for MacOS Homebrew package manager
+##
+
+set -e
+
+# A list of homebrew packages we'd like to have by default
+homebrew_packages=(
+	coreutils wget nano bash
+	readline vim node
+)
+
+# Installs homebrew if not installed, via a call to midot's API
+	brew_check
+
+# Updates and upgrades brew packages via midot's API (We use these for convenience and for debug messaging)
+	brew_update
+	brew_upgrade
+
+# Checks and installs any missing packages
+	info "Homebrew: Checking installed packages"
+	for package in "${homebrew_packages[@]}"; do
+		brew_check_package "${package}"
+	done

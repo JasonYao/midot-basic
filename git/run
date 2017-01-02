@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+##
+# Setup script for git environment
+##
+
+set -e
+
+: "${git_editor:="vim"}"
+: "${git_username:="YOUR NAME HERE"}"
+: "${git_email:="YOUR_EMAIL@gmail.com"}"
+
+info "Git: Checking current environment"
+set_git user.name "$git_username"
+set_git user.email "$git_email"
+set_git push.default simple
+set_git color.ui auto
+set_git core.editor "$git_editor"
+success "Git: Environment installed!"

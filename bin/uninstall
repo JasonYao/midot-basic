@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+##
+# Uninstall & cleanup script for dotfiles
+##
+
+set -e
+
+# Constants
+dotfiles_directory="$HOME/.dotfiles"
+
+# List of *external* directories created by the dotfiles (to add more, just add the path with space delimination)
+external_directories=(
+	~/.dotfiles_cache
+)
+
+# List of *external*, *non*-symlink files created by the dotfiles (eww why? Just symlink EVERYTHING)
+external_files=(
+	~/.gross_unsymlinked_file
+)
+
+# NOTE: We don't have to care about symlinked files, since midot automatically cleans those up!
+# NOTE: The actual dotfiles directory is cleaned up as well, so we only need to take care
+#	of "orphan" files/directories in this script!
+
+function remove_external_dir() {
+	for directory in "${external_directories[@]}"; do
+		rm_dir "${directory}"
+	done
+}
+
+# Leverages midot's API to remove it for us
+info "Uninstall: Removing external directories now"
+if remove_external_dir ; then
+	success "Uninstall: All external directories are now removed"
+else
+	fail "Uninstall: External directories failed to be removed"
+fi

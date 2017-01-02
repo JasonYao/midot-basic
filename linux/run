@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+##
+# Setup script for Linux environments
+##
+
+set -e
+
+# Constants
+bin_path="/home/$(whoami)/.bin"
+
+# Overridable values
+: "${dotfilesDirectory:="/home/$(whoami)/.dotfiles"}"
+
+# Symlinks all files (via midot's API), recursing with a max depth of 2
+symlink_all 2
+
+# Sets up private bin
+if [[ -d "$bin_path" ]]; then
+	success ".bin: Private bin is already set up"
+else
+	info ".bin: Private bin has not been setup, setting up now"
+	mkdir /home/"$username"/.bin
+	ln -s "$dotfilesDirectory"/bin/* /home/"$username"/.bin
+	success ".bin: Private bin is now set up"
+fi

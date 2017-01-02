@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+##
+# Setup script for MacOS environments
+##
+
+set -e
+
+# Constants
+bin_path="/home/$(whoami)/.bin"
+
+# Overridable values
+: "${dotfilesDirectory:="/home/$(whoami)/.dotfiles"}"
+
+# Symlinks all files (via midot's API), recursing with a max depth of 3
+symlink_all 3
+
+# Sets up homebrew
+if "dotfilesDirectory"/macOS/homebrew ; then
+	success "MacOS: Homebrew is all setup & updated"
+else
+	fail "MacOS: Homebrew failed to setup/update"
+fi

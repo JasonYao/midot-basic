@@ -1,0 +1,9 @@
+# OSX specific dotfiles (alias to .bashrc)
+
+# NOTE: Like all other *.symlink files, these files will
+# be symlinked via midot's `symlink_all` call to the $HOME
+# directory
+
+if [ -n "$BASH_VERSION" ] && [ -f $HOME/.bashrc ];then
+	source $HOME/.bashrc
+fi

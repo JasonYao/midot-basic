@@ -1,0 +1,10 @@
+# Shell configurations
+
+# NOTE: Like all other *.symlink files, these files will
+# be symlinked via midot's `symlink_all` call to the $HOME
+# directory
+
+# Implements colouring
+	if [ -f $HOME/.colour ]; then
+		source $HOME/.colour
+	fi

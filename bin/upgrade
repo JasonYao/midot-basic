@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+##
+# Upgrade script for this set of dotfiles
+##
+
+set -e
+
+# Constants
+dotfiles_directory="$HOME/.dotfiles"
+
+# Overridable values
+: "${username:="$(whoami)"}"
+: "${git_editor:="vim"}"
+: "${git_username:="YOUR NAME HERE"}"
+: "${git_email:="YOUR_EMAIL@gmail.com"}"
+
+# Exports values for other scripts
+export dotfiles_directory
+export username
+export git_editor
+export git_username
+export git_email
+
+# Runs OS-specific scripts
+if [ "$(uname -s)" == "Darwin" ]; then
+	info "OS: MacOS was detected, running MacOS setup script now"
+	"$dotfilesDirectory"/macOS/run 2>&1
+else
+	info "OS: Linux was detected, running Linux setup script now"
+	"$dotfilesDirectory"/linux/run 2>&1
+fi
+
+# Sets up git environment
+"$dotfilesDirectory"/git/run
