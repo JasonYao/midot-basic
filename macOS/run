@@ -7,17 +7,29 @@
 set -e
 
 # Constants
-bin_path="/home/$(whoami)/.bin"
+bin_path="$HOME/.bin"
+cache_path="~/.dotfiles_cache"
 
 # Overridable values
-: "${dotfilesDirectory:="/home/$(whoami)/.dotfiles"}"
+: "${dotfilesDirectory:="$HOME/.dotfiles"}"
 
-# Symlinks all files (via midot's API), recursing with a max depth of 3
-symlink_all 3
+# Symlinks all files (via midot's API), recursing with a default max depth of 3
+symlink_all
 
 # Sets up homebrew
 if "dotfilesDirectory"/macOS/homebrew ; then
 	success "MacOS: Homebrew is all setup & updated"
 else
 	fail "MacOS: Homebrew failed to setup/update"
+fi
+
+# Sets up cache directory for dotfiles
+if [[ -d "$cache_path" ]]; then
+	success "MacOS: Dotfiles cache directory is already setup"
+else
+	if mkdir -p $cache_path ; then
+		success "MacOS: Dotfiles cache directory is now setup"
+	else
+		fail "MacOS: Dotfiles cache directory failed to setup"
+	fi
 fi

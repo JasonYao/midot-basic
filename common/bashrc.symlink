@@ -8,3 +8,6 @@
 	if [ -f $HOME/.colour ]; then
 		source $HOME/.colour
 	fi
+
+# Sets the user's personal bin to their path
+	export PATH="$HOME/.dotfiles/bin:$PATH"

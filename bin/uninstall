@@ -19,7 +19,7 @@ external_files=(
 	~/.gross_unsymlinked_file
 )
 
-# NOTE: We don't have to care about symlinked files, since midot automatically cleans those up!
+# NOTE: We don't have to care about removing symlinked files, since midot automatically cleans those up!
 # NOTE: The actual dotfiles directory is cleaned up as well, so we only need to take care
 #	of "orphan" files/directories in this script!
 
